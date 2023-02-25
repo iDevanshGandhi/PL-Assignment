@@ -45,4 +45,27 @@ export const signup = async(req,res,next)=>{
     return res.status(201).json({user})
 };
 
+export const login = async(req,res,next)=>{
+    const {email, password} = req.body;
+    let exisitingUser;
+    try {
+        exisitingUser = await user.findOne({email});
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!exisitingUser) {
+        return res
+        .status(404)
+        .json({message: "Couldn't Find the User with this Email"})
+    }
+
+    const isPasswordCorrect = bcrypt.compareSync(password,exisitingUser.password);
+    if (!isPasswordCorrect) {
+        return res
+        .status(400)
+        .json({message: "Incorrect Password"})
+    }
+    return res.status(400).json({message: "Login Successfull"})
+};
+
 module.exports = getAllUser

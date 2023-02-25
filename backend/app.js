@@ -1,11 +1,13 @@
 const express = require("express")
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { default: blogRouter } = require("./routes/blog-routes");
 const router = require("./routes/user-routes")
     
 // const router = require("./routes/user-routes");
 const app = express();
-app.use(express.json())
-
+app.use(express.json());
+app.use("/api/user",router);
+app.use("/api/blog",blogRouter);
 
 mongoose.connect(
 	"mongodb+srv://devanshgandhi:tieRyPPzn6PSCa8t@cluster0.as1bb3n.mongodb.net/Blog?retryWrites=true&w=majority",
@@ -24,7 +26,7 @@ mongoose.connect(
 
 var db = mongoose.connection;
 
-app.use("/api/user",router)
+
 
 app.listen(5000, function () {
 	console.log("Server Running on PORT 5000" );
