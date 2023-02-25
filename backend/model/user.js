@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = new Schema;
+const Schema = new mongoose.Schema;
 
 const userSchema = new Schema({
     username: {
