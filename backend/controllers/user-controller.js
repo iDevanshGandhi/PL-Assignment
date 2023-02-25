@@ -1,4 +1,5 @@
 const user = require("../model/user")
+import bcrypt from "bcryptjs";
 
 const getAllUser = async(req,res,next)=>{
     let users;
@@ -22,13 +23,17 @@ export const signup = async(req,res,next)=>{
         return console.log(err);
     }
     if (exisitingUser) {
-        return res.status(400).json({message: "User Already Exists! Login Instead"})
+        return res
+        .status(400)
+        .json({message: "User Already Exists! Login Instead"})
     }
+    const hashedPassword = bcrypt.hashSync(password);
+
     const user = new user({
         name,
         email,
         phoneno,
-        password
+        password: hashedPassword
     });
 
     try {
