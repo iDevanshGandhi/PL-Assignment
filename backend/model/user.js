@@ -1,8 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose")
 
-const Schema = new mongoose.Schema;
-
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -25,5 +23,6 @@ const userSchema = new Schema({
     }
 });
 
-export default mongoose.model("User", userSchema);
+const user = mongoose.model("User", userSchema);
+module.exports = user
 // it will be stored by the name "users" in the mongodb database
