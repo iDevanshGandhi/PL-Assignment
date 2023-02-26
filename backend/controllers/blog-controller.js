@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
-import blog from "../model/blog";
-import user from "../model/user";
+const mongoose = require("mongoose");
+const blog = require("../model/blog");
+const user = require("../model/user");
 
-export const getAllBlogs = async(req,res,next)=>{
+const getAllBlogs = async(req,res,next)=>{
     let blogs;
     try {
         blogs = await blog.find();
@@ -15,7 +15,7 @@ export const getAllBlogs = async(req,res,next)=>{
     return res.status(200).json({blogs});
 }
 
-export const addBlog = async(req,res,next)=>{
+const addBlog = async(req,res,next)=>{
     const {title,description,image,user} = req.body;
     try {
         existingUser = await user.findById(user);
@@ -45,7 +45,7 @@ export const addBlog = async(req,res,next)=>{
     return res.status(200).json({ blog });
 };
 
-export const updateBlog = async (req, res, next)=> {
+const updateBlog = async (req, res, next)=> {
     const {title,description} = req.body;
     const blogId = req.params.id;
     let blog;
@@ -63,7 +63,7 @@ export const updateBlog = async (req, res, next)=> {
     return res.status(200).json({ blog });
 }
 
-export const getById = async (req, res, next)=> {
+const getById = async (req, res, next)=> {
     // const {title,description} = req.body;
     const id = req.params.id;
     let blog;
@@ -78,7 +78,7 @@ export const getById = async (req, res, next)=> {
     return res.status(200).json({ blog });
 };
 
-export const deleteBlog = async (req, res, next)=> {
+const deleteBlog = async (req, res, next)=> {
     // const {title,description} = req.body;
     const id = req.params.id;
     let blog;
@@ -95,7 +95,7 @@ export const deleteBlog = async (req, res, next)=> {
     return res.status(200).json({ message: "Deleted Successfully" });
 };
 
-export const getByUserId = async (req, res, next)=> {
+const getByUserId = async (req, res, next)=> {
     // const {title,description} = req.body;
     const userId = req.params.id;
     let userBlogs;
@@ -110,4 +110,8 @@ export const getByUserId = async (req, res, next)=> {
         return res.status(404).json({message: "No Blog Found"});
     }
     return res.status(200).json({ blogs: userBlogs });
+};
+
+module.exports = {
+    getAllBlogs, addBlog, updateBlog, getById, getByUserId, deleteBlog
 };
