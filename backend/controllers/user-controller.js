@@ -33,7 +33,8 @@ export const signup = async(req,res,next)=>{
         name,
         email,
         phoneno,
-        password: hashedPassword
+        password: hashedPassword,
+        blogs: [],
     });
 
     try {
