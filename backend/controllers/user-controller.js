@@ -66,7 +66,8 @@ const login = async(req,res,next)=>{
         .status(400)
         .json({message: "Incorrect Password"})
     }
-    return res.status(400).json({message: "Login Successfull"})
+    res.cookie("login", "true")
+    return res.status(200).json({message: "Login Successfull"})
 };
 
 module.exports = {
